@@ -1,1 +1,1 @@
-# linux_wallpaper_slider
+# gnome_wallpaper_slider
