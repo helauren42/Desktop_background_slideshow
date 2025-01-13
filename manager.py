@@ -23,13 +23,12 @@ class Abstract_manager(ABC):
             return
         try:
             files = subprocess.run("ls", stdout=subprocess.PIPE, text=True, cwd=self.db.path).stdout.splitlines()
+            print("DB PATH: ", self.db.path)
             self.db.imgs = []
             for file in files:
                 type = file.split(".")[-1]
                 if type in VALID_TYPES:
                     self.db.imgs.append(file)
-
-            print("\n\n[DEBUG] files: ", files)
 
             if len(self.db.imgs) == 0:
                 print("Warning: set images path contains no image")
@@ -56,17 +55,20 @@ class Manager(Abstract_manager):
             print(f"Could open process:\n{e}")
 
     def stop(self):
-        if not self.db.pid:
+        if not self.db.pid or len(self.db.pid) <= 0:
+            print("No running process to kill")
             return
         try:
-            subprocess.run(["kill", str(self.db.pid)], check=True)
-            print("Killed process: ", self.db.pid)
+            for pid in self.db.pid:
+                subprocess.run(["kill", str(pid)], check=True)
+                print("Killed process: ", pid)
             self.db.pid = None
         except Exception as e:
             print(f"Could not stop process:\n{e}")
 
-    # def refresh(self):
-    #     with 
+    def refresh(self):
+        self.stop()
+        self.start()
 
     def executeArgs(self, args: argparse.ArgumentParser):
         if args.set_time:

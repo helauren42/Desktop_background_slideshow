@@ -9,7 +9,7 @@ class database:
         self.path: Optional[str] = None
         self.imgs: Optional[List[str]] = None
         self.time: Optional[int] = 30
-        self.pid: Optional[int]= None
+        self.pid: Optional[List[int]] = None
         self.fetch()
 
     def fetch(self) -> Dict:
@@ -20,14 +20,20 @@ class database:
                 self.imgs = data.get("imgs")
                 self.time = data.get("time")
                 self.pid = data.get("pid")
-                print("[DEBUG] previous images: ", self.imgs)
                 return data
         except FileNotFoundError:
             return {}
         except Exception as e:
             print("file reading failed:")
             print(e)
-            sys.exit(1)
+            try:
+                print("attempting to rebuild db")
+                with open(DATA_FILE, "w") as file:
+                    empty = {}
+                    json.dump(empty, file, indent=4)
+            except Exception as e:
+                print("Failed rebuild db, exiting now")
+                sys.exit(1)
 
     def write(self):
         data: Dict = {}
@@ -42,6 +48,8 @@ class database:
         with open(DATA_FILE, "w") as file:
             json.dump(data, file, indent=4)
     
-    def addPid(self, pid: int):
-        self.pid = pid
+    def addPid(self, _pid: int):
+        if self.pid == None:
+            self.pid = []
+        self.pid.append(_pid)
         self.write()
