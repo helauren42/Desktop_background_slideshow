@@ -9,9 +9,13 @@ import subprocess
 
 DATA_FILE = ".data.json"
 PID = os.getpid()
-CWD = os.getcwd() 
 
-SCRIPT_WD = CWD + "/" + "change_wallpaper.sh"
+COLOR_SCHEME = subprocess.run(["gsettings get org.gnome.desktop.interface color-scheme"], shell=True, 
+                              stdout=subprocess.PIPE, text=True).stdout.strip()
+COLOR_SCHEME = "dark" if COLOR_SCHEME.find("dark") != -1 else "light"
+
+print(f'color scheme: "{COLOR_SCHEME}"')
+print("color scheme: ", COLOR_SCHEME)
 
 db: database = database()
 
@@ -28,10 +32,10 @@ def main():
         img = db.imgs[i]
         img_path = db.path + "/" + img
         try:
-            # print("ls: ", subprocess.run(["ls"], cwd=CWD, check=True, stdout=subprocess.PIPE, text=True).stdout)
-            subprocess.run([SCRIPT_WD, img_path],  check=True)
-            print("CWD: ", CWD)
-            print("running: ", img_path)
+            if COLOR_SCHEME == "dark":
+                subprocess.run([f'gsettings set org.gnome.desktop.background picture-uri-dark {img_path}'], shell=True)
+            else:
+                subprocess.run([f'gsettings set org.gnome.desktop.background picture-uri {img_path}'], shell=True)
         except Exception as e:
             print("changing wallpaper failed:")
             print(e)
