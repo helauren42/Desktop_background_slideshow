@@ -1,6 +1,0 @@
-when --set-time is executed the instance of run.py needs to be determined and launched back in order to update the delay time
-and background image, the alternative is to constantly check if the path or images or set_time has been updated using the 
-manager.py which is inefficient
-
-so manager.py needs start and stop commands
-pid is stored in .data.json

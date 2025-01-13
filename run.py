@@ -1,48 +1,32 @@
 from typing import List
 import json
 import random
+import os
+import sys
+from database import database
+from time import sleep
+import subprocess
 
 DATA_FILE = ".data.json"
+PID = os.getpid()
+CWD = os.getcwd()
 
-imgs = List[str]
+db: database = database()
 
-class data{
-    
-}
-    # def previousData(self):
-    #     try:
-    #         try:
-    #             with open(DATA_FILE, "r") as file:
-    #                 _data = json.load(file)
-    #                 self.path = _data.get("path")
-    #                 self.imgs = _data.get("imgs")
-    #                 print("[DEBUG] previous images: ", self.imgs)
-    #         except FileNotFoundError:
-    #             try:
-    #                 print('creating db file ".data.json"')
-    #                 with open(DATA_FILE, "w") as file:
-    #                     file.write("{}")
-    #             except Exception as e:
-    #                 print("file creation failed:")
-    #                 print(e)
-    #                 sys.exit(1)
-    #     except Exception as e:
-    #         print("Error found:")
-    #         print(e)
-    #         sys.exit(1)
-
-def getImages():
-    with open(DATA_FILE, "r") as file:
-        data = json.load(file)
-        imgs = data.get("imgs")
-        # imgs = data["imgs"]
+if not db.imgs or len(db.imgs) <= 0:
+    print("No images have been found, can not start")
 
 def main():
-    getImages()
     while(True):
-        i = random.randint(0, len(imgs) -1)
-        img = imgs[i]
-
+        sleep(db.time)
+        i = random.randint(0, len(db.imgs) -1)
+        img = db.imgs[i]
+        try:
+            subprocess.run([ "sudo", "./change_wallpaper.sh", img], cwd=CWD, check=True)
+            print("running: ", img)
+        except Exception as e:
+            print("changing wallpaper failed:")
+            print(e)
 
 if __name__ == "__main__":
     main()
