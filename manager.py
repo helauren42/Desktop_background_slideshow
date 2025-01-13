@@ -4,6 +4,7 @@ import json
 import subprocess
 from abc import ABC
 from database import database
+import sys
 
 VALID_TYPES = [
     "jpeg", "jpg",
@@ -51,6 +52,8 @@ class Manager(Abstract_manager):
         try:
             process = subprocess.Popen(["python3", "run.py"])
             print("launched run.py")
+            sys.exit(0)
+            print("exited")
         except Exception as e:
             print(f"Could open process:\n{e}")
 
@@ -58,13 +61,13 @@ class Manager(Abstract_manager):
         if not self.db.pid or len(self.db.pid) <= 0:
             print("No running process to kill")
             return
-        try:
-            for pid in self.db.pid:
+        for pid in self.db.pid:
+            try:
                 subprocess.run(["kill", str(pid)], check=True)
                 print("Killed process: ", pid)
+            except Exception as e:
+                print(f"Could not stop process:\n{e}")
             self.db.pid = None
-        except Exception as e:
-            print(f"Could not stop process:\n{e}")
 
     def refresh(self):
         self.stop()

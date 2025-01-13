@@ -1,35 +1,50 @@
 from typing import List
-import json
 import random
 import os
 import sys
 from database import database
 from time import sleep
 import subprocess
+from collections import deque
 
+# GLOBAL VARIABLES
+imgs_history = deque()
+db: database = database()
+
+# CONST GLOBAL
+LENGTH = len(db.imgs)
 DATA_FILE = ".data.json"
 PID = os.getpid()
-
-COLOR_SCHEME = subprocess.run(["gsettings get org.gnome.desktop.interface color-scheme"], shell=True, 
+COLOR_SCHEME = subprocess.run(["gsettings get org.gnome.desktop.interface color-scheme"], shell=True,
                               stdout=subprocess.PIPE, text=True).stdout.strip()
 COLOR_SCHEME = "dark" if COLOR_SCHEME.find("dark") != -1 else "light"
-
-print(f'color scheme: "{COLOR_SCHEME}"')
-print("color scheme: ", COLOR_SCHEME)
-
-db: database = database()
 
 if not db.imgs or len(db.imgs) <= 0:
     print("No images have been found, can not start")
     sys.exit()
 
 db.addPid(PID)
+print(PID)
+
+def getImage():
+    while len(imgs_history) > LENGTH // 2:
+        print("Pre pop : ", imgs_history)
+        imgs_history.popleft()
+        print("\nPost pop : ", imgs_history)
+    img = None
+    while img is None or img in imgs_history:
+        i = random.randint(0, LENGTH -1)
+        img = db.imgs[i]
+    imgs_history.append(img)
+    return img
 
 def main():
     while(True):
         sleep(db.time)
-        i = random.randint(0, len(db.imgs) -1)
-        img = db.imgs[i]
+
+        img = getImage()
+        # store the last couple of images and make sure 
+        # if len db.imgs == 20 store the 10 most recent images
         img_path = db.path + "/" + img
         try:
             if COLOR_SCHEME == "dark":

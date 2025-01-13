@@ -28,8 +28,5 @@
         "Village-Dark.png",
         "Wall.png"
     ],
-    "time": 5,
-    "pid": [
-        84410
-    ]
+    "time": 100
 }
