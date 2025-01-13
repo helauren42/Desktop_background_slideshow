@@ -89,18 +89,20 @@ class Manager(Abstract_manager):
     def start(self):
         process = subprocess.Popen(["python3", "run.py"])
         self.pid = process.pid()
-            
+
     # def refresh(self):
     #     with 
 
     def executeArgs(self, args: argparse.ArgumentParser):
         self.previousData()
         if args.set_time:
-            self.setTime()
+            self.setTime(args_time=args.set_time)
         if args.path:
             self.newPath(args_path=args.path)
         if args.refresh:
             self.refresh()
+        
+        self.writeToDatabase()
 
 def main():
     parser = argparse.ArgumentParser()
