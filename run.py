@@ -24,13 +24,10 @@ if not db.imgs or len(db.imgs) <= 0:
     sys.exit()
 
 db.addPid(PID)
-print(PID)
 
 def getImage():
     while len(imgs_history) > LENGTH // 2:
-        print("Pre pop : ", imgs_history)
         imgs_history.popleft()
-        print("\nPost pop : ", imgs_history)
     img = None
     while img is None or img in imgs_history:
         i = random.randint(0, LENGTH -1)
@@ -40,11 +37,7 @@ def getImage():
 
 def main():
     while(True):
-        sleep(db.time)
-
         img = getImage()
-        # store the last couple of images and make sure 
-        # if len db.imgs == 20 store the 10 most recent images
         img_path = db.path + "/" + img
         try:
             if COLOR_SCHEME == "dark":
@@ -54,6 +47,7 @@ def main():
         except Exception as e:
             print("changing wallpaper failed:")
             print(e)
+        sleep(db.time)
 
 if __name__ == "__main__":
     main()

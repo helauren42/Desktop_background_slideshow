@@ -8,9 +8,11 @@ class database:
     def __init__(self):
         self.path: Optional[str] = None
         self.imgs: Optional[List[str]] = None
-        self.time: Optional[int] = 30
+        self.time: Optional[int] = None
         self.pid: Optional[List[int]] = None
         self.fetch()
+        if self.time is None:
+            self.time = 30
 
     def fetch(self) -> Dict:
         try:

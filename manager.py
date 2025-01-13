@@ -5,6 +5,9 @@ import subprocess
 from abc import ABC
 from database import database
 import sys
+import os
+
+PID = os.getpid()
 
 VALID_TYPES = [
     "jpeg", "jpg",
@@ -44,16 +47,15 @@ class Manager(Abstract_manager):
     def newPath(self, args_path):
         self.db.path = args_path
         self.getImages()
-    
+
     def setTime(self, args_time):
         self.db.time = args_time
 
     def start(self):
         try:
-            process = subprocess.Popen(["python3", "run.py"])
+            process = subprocess.Popen(["python3", "run.py"], close_fds=True)
             print("launched run.py")
             sys.exit(0)
-            print("exited")
         except Exception as e:
             print(f"Could open process:\n{e}")
 
@@ -89,10 +91,10 @@ class Manager(Abstract_manager):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("-s", "--set-time", type=int, help="time between images")
+    parser.add_argument("-s", "--set-time", type=int, help="time between images in seconds, defaults to 30 seconds")
     parser.add_argument('path', type=str, nargs='?', help="Directory path containing images for the slideshow")
 
-    parser.add_argument("-start", "--start", action="store_true", help="start the slideshow")
+    parser.add_argument("-start", "--start", action="store_true", help="start the slideshow, requires path to be set")
     parser.add_argument("-stop", "--stop", action="store_true", help="stop the slideshow")
     parser.add_argument("-refresh", "--refresh", action="store_true", help="updates when the images directory has been modified")
 

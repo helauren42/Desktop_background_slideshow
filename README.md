@@ -1,5 +1,42 @@
 # gnome_wallpaper_slider
 
-This program is developed as a desktop background slideshow for gnome. I had installed a lovely wallpaper slideshow gnome extension on my fedora 41, it was working well except that my laptop's key input would bug everytime the image was updated. It was a big disappointment for me not to be able to flex my slideshow desktop background to my friends and aquaintances, I really wanted this feature so I decided to make my own background slideshow program! It works very well on my machine, and I'm happy I built it, because having my own background slideshow now allows me to flex extra hard on my friends! I know how cool it is to have a background slideshow so I'm working on an official gnome release so that more people can flex on their friends too <3.
+## Brief
 
-The command "gsettings set org.gnome.desktop.background picture-uri" accepts all format types even when I tested custom types it worked, but for more convenient usage of this program I have limited the available image types to ("jpeg", "jpg", "png", "gif", "bmp", "tiff", "tif", "webp", "ico", "heif", "heic", "raw"), so that your .txt .json and other file types in your selected image repository can be ignored
+This program is developed as a desktop background slideshow for gnome.
+
+## Introduction / background story
+
+I had installed a lovely wallpaper slideshow gnome extension on my fedora 41, it was working well except that my laptop's key input would bug everytime the image was updated. It was a big disappointment for me not to be able to flex my slideshow desktop background to my friends and aquaintances, I really wanted this feature so I told myself that if the official extension isn't working then I will have to do it myself! So I built this slideshow application and at least it works very well on my machine.
+I'm happy I built it, because having my own background slideshow now allows me to flex extra hard on my friends! I know how cool it is to have a background slideshow, it's still a cool flex even when it's not your own program, so I'm working on an official gnome release so that more people can flex on their friends too :DDDDD <3.
+
+I assume the command "gsettings set org.gnome.desktop.background picture-uri" accepts all format types, even when I tested custom types it worked, but for more convenient usage of this program I have limited the available image types to ("jpeg", "jpg", "png", "gif", "bmp", "tiff", "tif", "webp", "ico", "heif", "heic", "raw"), so that your .txt .json and other file types in your selected image repository can be ignored.
+
+## Usage
+
+### For an overview of the usage of the program here is what the help from "python3 manager.py -h" displays:
+
+usage: manager.py [-h] [-s SET_TIME] [-start] [-stop] [-refresh] [path]
+
+positional arguments:
+  path                  Directory path containing images for the slideshow
+
+options:
+  -h, --help            show this help message and exit
+  -s, --set-time SET_TIME
+                        time between images in seconds, defaults to 30 seconds
+  -start, --start       start the slideshow
+  -stop, --stop         stop the slideshow
+  -refresh, --refresh   updates when the images directory has been modified
+
+### Usage explanation
+
+Start by defining path argument and optionally set the time.
+
+EX: python3 manager.py -s 10 ~/Pictures/wallpapers
+
+This declares that we want to fetch our background images from "~/Pictures/wallpapers" and that the image will be changed every 10 seconds
+This information is stored in a ".data.json" file.
+
+Then you can safely run python3 manager.py -start
+
+this
