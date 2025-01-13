@@ -24,7 +24,6 @@ VALID_TYPES = [
 class Abstract_manager(ABC):
 
     def previousData(self):
-        try:
             try:
                 with open(DATA_FILE, "r") as file:
                     _data = json.load(file)
@@ -32,21 +31,11 @@ class Abstract_manager(ABC):
                     self.imgs = _data.get("imgs")
                     print("[DEBUG] previous images: ", self.imgs)
             except FileNotFoundError:
-                try:
-                    print('creating db file ".data.json"')
-                    with open(DATA_FILE, "w") as file:
-                        file.write("{}")
-                except Exception as e:
-                    print("file creation failed:")
+                pass
+            except Exception as e:
+                    print("file reading failed:")
                     print(e)
                     sys.exit(1)
-        except Exception as e:
-            print("Error found:")
-            print(e)
-            sys.exit(1)
-
-    def updatePath(self, args_path):
-        self.path = args_path
 
     def getImages(self):
         if not self.path:
@@ -67,16 +56,7 @@ class Abstract_manager(ABC):
             print(f'Failed to cd and ls {self.path}:')
             print(e)
 
-class Manager(Abstract_manager):
-    path: Optional[str] = None
-    imgs: Optional[List[str]]
-    time: int = 30
-
-    def __init__(self):
-        pass
-        # self.previousData()
-
-    def updateDatabase(self):
+    def writeToDatabase(self):
         data: Dict = {}
         if self.path:
             data["path"] = self.path
@@ -84,22 +64,43 @@ class Manager(Abstract_manager):
             data["imgs"] = self.imgs
         if self.time:
             data["time"] = self.time
+        if self.pid:
+            data["pid"] = self.pid
+
         with open(DATA_FILE, "w") as file:
             json.dump(data, file, indent=4)
 
-    def setPath(self, args_path):
-        self.updatePath(args_path)
+class Manager(Abstract_manager):
+    path: Optional[str] = None
+    imgs: Optional[List[str]] = None
+    time: Optional[int] = 30
+    pid: Optional[int]= None
+
+    def __init__(self):
+        pass
+
+    def newPath(self, args_path):
+        self.path = args_path
         self.getImages()
     
     def setTime(self, args_time):
-        self.time
+        self.time = args_time
 
+    def start(self):
+        process = subprocess.Popen(["python3", "run.py"])
+        self.pid = process.pid()
+            
+    # def refresh(self):
+    #     with 
 
-def executeArgs(args: argparse.ArgumentParser, manager: Manager):
-    if args.path:
-        manager.setPath(args_path=args.path)
-    if args.set_time:
-        manager.setTime()
+    def executeArgs(self, args: argparse.ArgumentParser):
+        self.previousData()
+        if args.set_time:
+            self.setTime()
+        if args.path:
+            self.newPath(args_path=args.path)
+        if args.refresh:
+            self.refresh()
 
 def main():
     parser = argparse.ArgumentParser()
@@ -108,10 +109,10 @@ def main():
 
     parser.add_argument("-start", "--start", action="store_true", help="start the slideshow")
     parser.add_argument("-stop", "--stop", action="store_true", help="stop the slideshow")
-    # parser.add_argument("-refresh", "--refresh", action="store_true", help="updates when the images directory has been modified")
+    parser.add_argument("-refresh", "--refresh", action="store_true", help="updates when the images directory has been modified")
 
     args = parser.parse_args()
     manager = Manager()
-    executeArgs(args, manager)
+    manager.executeArgs(args)
 
 main()
