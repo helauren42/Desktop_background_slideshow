@@ -53,13 +53,14 @@ class Manager(Abstract_manager):
             process = subprocess.Popen(["python3", "run.py"])
             print("launched run.py")
         except Exception as e:
-            print(f"Could not stop process:\n{e}")
+            print(f"Could open process:\n{e}")
 
     def stop(self):
         if not self.db.pid:
             return
         try:
-            subprocess.run(["kill", self.db.pid], check=True)
+            subprocess.run(["kill", str(self.db.pid)], check=True)
+            print("Killed process: ", self.db.pid)
             self.db.pid = None
         except Exception as e:
             print(f"Could not stop process:\n{e}")

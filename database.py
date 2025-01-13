@@ -18,8 +18,8 @@ class database:
                 data = json.load(file)
                 self.path = data.get("path")
                 self.imgs = data.get("imgs")
-                self.pid = data.get("pid")
                 self.time = data.get("time")
+                self.pid = data.get("pid")
                 print("[DEBUG] previous images: ", self.imgs)
                 return data
         except FileNotFoundError:
@@ -41,4 +41,7 @@ class database:
             data["pid"] = self.pid
         with open(DATA_FILE, "w") as file:
             json.dump(data, file, indent=4)
-
+    
+    def addPid(self, pid: int):
+        self.pid = pid
+        self.write()
