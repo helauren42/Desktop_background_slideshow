@@ -11,6 +11,8 @@ I'm happy I built it, because having my own background slideshow now allows me t
 
 I assume the command "gsettings set org.gnome.desktop.background picture-uri" accepts all format types, even when I tested custom types it worked, but for more convenient usage of this program I have limited the available image types to ("jpeg", "jpg", "png", "gif", "bmp", "tiff", "tif", "webp", "ico", "heif", "heic", "raw"), so that your .txt .json and other file types in your selected image repository can be ignored.
 
+PS: my wallpaper doesn't cause the typing bug I was experiencing with the extension I installed but it does create a noticeable short term spike in cpu usage the moment the wallpaper background is changed. But the experience is mostly smooth, I do notice that my machine is not running as smoothly if I set the time to 1 second and the wallpaper background is modified every second.
+
 ## Usage
 
 ### For an overview of the usage of the program here is what the help from "python3 manager.py -h" displays:
