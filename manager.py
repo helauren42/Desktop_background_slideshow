@@ -54,21 +54,17 @@ class Manager(Abstract_manager):
     def start(self):
         try:
             process = subprocess.Popen(["python3", "run.py"], close_fds=True)
-            print("launched run.py")
-            sys.exit(0)
         except Exception as e:
-            print(f"Could open process:\n{e}")
+            print(f"Failed to start application:\n{e}")
 
     def stop(self):
         if not self.db.pid or len(self.db.pid) <= 0:
-            print("No running process to kill")
             return
         for pid in self.db.pid:
             try:
-                subprocess.run(["kill", str(pid)], check=True)
-                print("Killed process: ", pid)
+                subprocess.run(["kill", str(pid)], check=True, close_fds=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
             except Exception as e:
-                print(f"Could not stop process:\n{e}")
+                pass 
             self.db.pid = None
 
     def refresh(self):
@@ -95,8 +91,10 @@ def main():
     parser.add_argument('path', type=str, nargs='?', help="Directory path containing images for the slideshow")
 
     parser.add_argument("-start", "--start", action="store_true", help="start the slideshow, requires path to be set")
-    parser.add_argument("-stop", "--stop", action="store_true", help="stop the slideshow")
-    parser.add_argument("-refresh", "--refresh", action="store_true", help="updates when the images directory has been modified")
+    parser.add_argument("-stop", "--stop", action="store_true", help="stop the slideshow, will stop all instances of the \
+                        application if multiple are running")
+    parser.add_argument("-refresh", "--refresh", action="store_true", help="restarts app to be updated with the current \
+                        shell environment and images in the directory")
 
     args = parser.parse_args()
     manager = Manager()
