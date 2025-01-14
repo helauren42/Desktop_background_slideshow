@@ -27,7 +27,6 @@ class Abstract_manager(ABC):
             return
         try:
             files = subprocess.run("ls", stdout=subprocess.PIPE, text=True, cwd=self.db.path).stdout.splitlines()
-            print("DB PATH: ", self.db.path)
             self.db.imgs = []
             for file in files:
                 type = file.split(".")[-1]
@@ -37,7 +36,7 @@ class Abstract_manager(ABC):
             if len(self.db.imgs) == 0:
                 print("Warning: set images path contains no image")
         except Exception as e:
-            print(f'Failed to cd and ls {self.db.path}:')
+            print(f'Failed to run subprocess to fetch image file names')
             print(e)
 
 class Manager(Abstract_manager):

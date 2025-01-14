@@ -29,7 +29,7 @@ class database:
             print("file reading failed:")
             print(e)
             try:
-                print("attempting to rebuild db")
+                print("rebuilding db")
                 with open(DATA_FILE, "w") as file:
                     empty = {}
                     json.dump(empty, file, indent=4)
