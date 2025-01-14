@@ -1,8 +1,7 @@
 # gnome_wallpaper_slider
 
-## Brief
-
 This program is developed as a desktop background slideshow for gnome.
+link to github repo: https://github.com/helauren42/gnome_wallpaper_slider
 
 ## Introduction / background story
 
