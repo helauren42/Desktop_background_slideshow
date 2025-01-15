@@ -18,8 +18,8 @@ PS: my wallpaper doesn't cause the typing bug I was experiencing with the extens
 
 usage: manager.py [-h] [-s SET_TIME] [-start] [-stop] [-refresh] [path]
 
-positional arguments:
-  path                  Directory path containing images for the slideshow
+positional arguments:</br>
+  Directory path containing images for the slideshow
 
 options:</br>
   -h, --help</br>
