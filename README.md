@@ -22,11 +22,11 @@ positional arguments:
   path                  Directory path containing images for the slideshow
 
 options:
-  -h, --help                show this help message and exit
-  -s, --set-time            set the time between images in seconds, defaults to 30 seconds
-  -start, --start           start the slideshow, requires path to be set
-  -stop, --stop             stop the slideshow, will stop all instances of the application if multiple are running
-  -refresh, --refresh       updates the images for the slideshow when the images directory has been modified
+  -h, --help                show this help message and exit</br>
+  -s, --set-time            set the time between images in seconds, defaults to 30 seconds</br>
+  -start, --start           start the slideshow, requires path to be set</br>
+  -stop, --stop             stop the slideshow, will stop all instances of the application if multiple are running</br>
+  -refresh, --refresh       updates the images for the slideshow when the images directory has been modified</br>
 
 ### Usage explanation
 
