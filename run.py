@@ -11,7 +11,7 @@ imgs_history = deque()
 db: database = database()
 
 # CONST GLOBAL
-LENGTH = len(db.imgs)
+LENGTH = 0 if db.imgs is None else len(db.imgs)
 DATA_FILE = ".data.json"
 PID = os.getpid()
 COLOR_SCHEME = subprocess.run(["gsettings get org.gnome.desktop.interface color-scheme"], shell=True,
@@ -20,7 +20,7 @@ COLOR_SCHEME = "dark" if COLOR_SCHEME.find("dark") != -1 else "light"
 
 if not db.imgs or len(db.imgs) <= 0:
     print("No images have been found, can not start")
-    sys.exit()
+    sys.exit(1)
 
 db.addPid(PID)
 

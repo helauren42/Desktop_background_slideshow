@@ -16,7 +16,8 @@ VALID_TYPES = [
     "webp",
     "ico",
     "heif", "heic",
-    "raw"
+    "raw",
+    "avif"
 ]
 
 class Abstract_manager(ABC):
@@ -55,7 +56,7 @@ class Manager(Abstract_manager):
 
     def start(self):
         try:
-            process = subprocess.Popen(["python3", "run.py"], close_fds=True)
+            process = subprocess.Popen(["python3", "run.py"], close_fds=True, stderr=subprocess.PIPE, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
         except Exception as e:
             print(f"Failed to start application:\n{e}")
 
