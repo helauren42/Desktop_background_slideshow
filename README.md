@@ -26,6 +26,8 @@ options:</br>
   show this help message and exit</br></br>
   -s, --set-time</br>
   set the time between images in seconds, defaults to 30 seconds</br></br>
+  -sm, --set-time-minutes</br>
+  set the time between images in minutes</br></br>
   -start, --start</br>
   start the slideshow, requires path to be set</br></br>
   -stop, --stop</br>

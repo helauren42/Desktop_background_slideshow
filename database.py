@@ -49,7 +49,7 @@ class database:
             data["pid"] = self.pid
         with open(DATA_FILE, "w") as file:
             json.dump(data, file, indent=4)
-    
+
     def addPid(self, _pid: int):
         if self.pid == None:
             self.pid = []

@@ -45,8 +45,13 @@ class Manager(Abstract_manager):
         self.db.path = args_path
         self.getImages()
 
-    def setTime(self, args_time):
-        self.db.time = args_time
+    def setTime(self, args_time, minutes=False):
+        if args_time is None:
+            return
+        if minutes:
+            self.db.time = args_time * 60
+        else:
+            self.db.time = args_time
 
     def start(self):
         try:
@@ -70,7 +75,9 @@ class Manager(Abstract_manager):
 
     def executeArgs(self, args: argparse.ArgumentParser):
         if args.set_time:
-            self.setTime(args_time=args.set_time)
+            self.setTime(args_time=args.set_time, minutes=False)
+        if args.set_time_minutes:
+            self.setTime(args_time=args.set_time, minutes=True)
         if args.path:
             self.newPath(args_path=args.path)
         if args.refresh:
@@ -85,6 +92,7 @@ class Manager(Abstract_manager):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-s", "--set-time", type=int, help="time between images in seconds, defaults to 30 seconds")
+    parser.add_argument("-sm", "--set-time-minutes", type=int, help="time between images in minutes")
     parser.add_argument('path', type=str, nargs='?', help="Directory path containing images for the slideshow")
 
     parser.add_argument("-start", "--start", action="store_true", help="start the slideshow, requires path to be set")
