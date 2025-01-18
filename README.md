@@ -12,7 +12,11 @@ Just run the install.sh file.
 The executable will be located in ~/.local/bin/ and the application files in ~/.local/bin/.app-bg-slideshow/.
 To remove the application you can run the uninstall.sh from ~/.local/bin/.app-bg-slideshow/ or run bg-slideshow --uninstall.
 
-## Usage
+### Dependencies
+
+You will need python3 and if you're python3 version is < 3.5 then you will need to manually install the typing module via pip, all other modules used are in the standard library.
+
+# Usage
 
 ### For an overview of the usage of the program here is what the help from "bg-slideshow -h" displays:
 
@@ -57,7 +61,7 @@ You also need to call --refresh when switching from light to dark mode in your g
 
 The slider is not fetching your current mode (light/dark) and your images continuously for resource optimization purposes.
 
-## background story
+# background story
 
 I had installed a lovely wallpaper slideshow gnome extension on my fedora 41, it was working well except that my laptop's key input would bug everytime the image was updated, as I wanted a differnt image every couple of seconds, it was a real issue. It was big disappointment for me, not to be able to flex my slideshow desktop background to my friends and family. I was desperate for it so I told myself, guess I'm going to have to do it myself! So I built it, and I'm very happy I did because now I don't just have a slideshow desktop background, I have a slideshow desktop background that I BUILT! And that allows me to flex extra hard on my friends!!! :DDD
 I know how cool it is to have a background slideshow, even when it's not your own program, it is a very cool flex! So I'm working on an official gnome release so that more people can flex on their friends too :DDDDD <3.
