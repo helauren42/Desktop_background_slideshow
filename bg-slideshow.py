@@ -11,9 +11,10 @@ imgs_history = deque()
 db: database = database()
 
 # CONST GLOBAL
-LENGTH = 0 if db.imgs is None else len(db.imgs)
-DATA_FILE = ".data.json"
+HOME = os.path.expanduser("~")
+DATA_FILE = os.path.join(HOME, ".app-bg-slideshow/data.json")
 PID = os.getpid()
+LENGTH = 0 if db.imgs is None else len(db.imgs)
 COLOR_SCHEME = subprocess.run(["gsettings get org.gnome.desktop.interface color-scheme"], shell=True,
                               stdout=subprocess.PIPE, text=True).stdout.strip()
 COLOR_SCHEME = "dark" if COLOR_SCHEME.find("dark") != -1 else "light"
@@ -35,9 +36,11 @@ def getImage():
     return img
 
 def main():
+    print("run main")
     while(True):
         img = getImage()
         img_path = db.path + "/" + img
+        print(f"img_path: {img_path}")
         try:
             if COLOR_SCHEME == "dark":
                 subprocess.run([f'gsettings set org.gnome.desktop.background picture-uri-dark {img_path}'], shell=True)

@@ -42,7 +42,7 @@ Start by defining path argument and optionally set the time.
 EX: python3 manager.py -s 10 ~/Pictures/wallpapers
 
 This declares that we want to fetch our background images from "~/Pictures/wallpapers" and that the image will be changed every 10 seconds
-This information is stored in a ".data.json" file, so it should be stored between your sessions.
+This information is stored in a "./.app-bg-slideshow/data.json" file, so it should be stored between your sessions.
 
 Then you can safely run python3 manager.py -start to launch the slideshow and -stop to interrupt it, which effectively kills the running process.
 

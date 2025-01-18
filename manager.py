@@ -4,6 +4,7 @@ import subprocess
 from abc import ABC
 from database import database
 import os
+import sys
 
 PID = os.getpid()
 
@@ -20,6 +21,9 @@ VALID_TYPES = [
     "avif"
 ]
 
+HOME = os.path.expanduser("~")
+WD = os.path.join(HOME, ".local/bin/.app-bg-slideshow")
+
 class Abstract_manager(ABC):
     def getImages(self):
         if not self.db.path:
@@ -35,7 +39,7 @@ class Abstract_manager(ABC):
             if len(self.db.imgs) == 0:
                 print("Warning: set images path contains no image")
         except Exception as e:
-            print(f'Failed to run subprocess to fetch image file names')
+            print(f'Fetching image file names failed')
             print(e)
 
 class Manager(Abstract_manager):
@@ -56,7 +60,8 @@ class Manager(Abstract_manager):
 
     def start(self):
         try:
-            process = subprocess.Popen(["python3", "run.py"], close_fds=True, stderr=subprocess.PIPE, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+            process = subprocess.Popen(["python3", os.path.join(WD + "/bg-slideshow.py")], close_fds=True, stderr=subprocess.PIPE, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+            # process = subprocess.Popen(["python3", os.path.join(WD + "/bg-slideshow.py")])
         except Exception as e:
             print(f"Failed to start application:\n{e}")
 
@@ -67,7 +72,7 @@ class Manager(Abstract_manager):
             try:
                 subprocess.run(["kill", str(pid)], check=True, close_fds=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
             except Exception as e:
-                pass 
+                pass
             self.db.pid = None
 
     def refresh(self):
@@ -75,6 +80,9 @@ class Manager(Abstract_manager):
         self.start()
 
     def executeArgs(self, args: argparse.ArgumentParser):
+        if args.uninstall:
+            subprocess.run(["python3", os.path.join(WD + "/bg-slideshow.py")], close_fds=True, stderr=subprocess.PIPE, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+            sys.exit(0)
         if args.set_time:
             self.setTime(args_time=args.set_time, minutes=False)
         if args.set_time_minutes:
@@ -91,7 +99,8 @@ class Manager(Abstract_manager):
         self.db.write()
 
 def main():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(prog="bg-slideshow", description="A command-line utility for managing background slideshows in gnome.")
+
     parser.add_argument("-s", "--set-time", type=int, help="time between images in seconds, defaults to 30 seconds")
     parser.add_argument("-sm", "--set-time-minutes", type=int, help="time between images in minutes")
     parser.add_argument('path', type=str, nargs='?', help="Directory path containing images for the slideshow")
@@ -101,8 +110,14 @@ def main():
                         application if multiple are running")
     parser.add_argument("-refresh", "--refresh", action="store_true", help="restarts app to be updated with the current \
                         shell environment and images in the directory")
+    parser.add_argument("--uninstall", action="store_true", help="uninstals the background slideshow application and all the application's components")
 
+    if len (sys.argv) <= 1:
+        parser.print_help()
+        sys.exit(0)
+    
     args = parser.parse_args()
+    
     manager = Manager()
     manager.executeArgs(args)
 

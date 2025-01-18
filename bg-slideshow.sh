@@ -1,6 +1,5 @@
 #!/bin/bash
 
-INSTALLOC="$HOME/.local/bin/desktop-wallpaper-slider"
+INSTALLOC="$HOME/.local/bin/.app-bg-slideshow"
 
-python3 $INSTALLOC/manager.py "$@"
-
+python3 -u $INSTALLOC/manager.py "$@"

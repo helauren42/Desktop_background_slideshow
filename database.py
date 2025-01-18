@@ -1,8 +1,10 @@
 import json
 from typing import List, Dict, Optional
 import sys
+import os
 
-DATA_FILE = ".data.json"
+HOME = os.path.expanduser("~")
+DATA_FILE = os.path.join(HOME, ".local/bin", ".app-bg-slideshow/data.json")
 
 class database:
     def __init__(self):
