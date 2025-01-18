@@ -3,20 +3,20 @@
 This program is developed as a desktop background slideshow for gnome.
 link to github repo: https://github.com/helauren42/gnome_wallpaper_slider
 
-## Introduction / background story
+Unfortunately I did not integrate it to the official gnome Extensions application, I had built this in python and it was working and then I didn't feel like rebuilding the same thing in javascript while also runnning a lot less subprocesses, I did not know Gnome was this strict in their rules on how to build extensions.
+I might build a custom Extensions application that allows for a lot more freedom than the current official Gnome one.
 
-I had installed a lovely wallpaper slideshow gnome extension on my fedora 41, it was working well except that my laptop's key input would bug everytime the image was updated, as I wanted a differnt image every couple of seconds, it was a real issue. It was big disappointment for me, not to be able to flex my slideshow desktop background to my friends and family. I was desperate for it so I told myself, guess I'm going to have to do it myself! So I built it, and I'm very happy I did because now I don't just have a slideshow desktop background, I have a slideshow desktop background that I BUILT! And that allows me to flex extra hard on my friends!!! :DDD
-I know how cool it is to have a background slideshow, even when it's not your own program, it is a very cool flex! So I'm working on an official gnome release so that more people can flex on their friends too :DDDDD <3.
+# Installation
 
-I assume the command "gsettings set org.gnome.desktop.background picture-uri" accepts all format types, even when I tested custom types it worked, but for more convenient usage of this program I have limited the available image types to ("jpeg", "jpg", "png", "gif", "bmp", "tiff", "tif", "webp", "ico", "heif", "heic", "raw"), so that your .txt .json and other file types in your selected image repository can be ignored.
-
-PS: my wallpaper doesn't cause the typing bug I was experiencing with the extension I installed but it does create a noticeable short term spike in cpu usage the moment the wallpaper background is changed. But the experience is mostly smooth, I do notice that my machine is not running as smoothly if I set the time to 1 second so that the wallpaper background is modified every second.
+Just run the install.sh file.
+The executable will be located in ~/.local/bin/ and the application files in ~/.local/bin/.app-bg-slideshow/.
+To remove the application you can run the uninstall.sh from ~/.local/bin/.app-bg-slideshow/ or run bg-slideshow --uninstall.
 
 ## Usage
 
-### For an overview of the usage of the program here is what the help from "python3 manager.py -h" displays:
+### For an overview of the usage of the program here is what the help from "bg-slideshow -h" displays:
 
-usage: manager.py [-h] [-s SET_TIME] [-start] [-stop] [-refresh] [path]
+usage: bg-slideshow [-h] [-s SET_TIME] [-start] [-stop] [-refresh] [path]
 
 positional arguments:</br>
   Directory path containing images for the slideshow
@@ -34,6 +34,8 @@ options:</br>
   stop the slideshow, will stop all instances of the application if multiple are running</br></br>
   -refresh, --refresh</br>
   updates the images for the slideshow when the images directory has been modified</br>
+  --uninstall</br>
+  uninstals the background slideshow application and all the application's components</br>
 
 ### Usage explanation
 
@@ -54,3 +56,12 @@ To make the application up to date with the images in that directory, you can us
 You also need to call --refresh when switching from light to dark mode in your gnome appearance settings as there is a different command being executed by the wallpaper slider for both, and your current mode is only evaluated at the application's launch time
 
 The slider is not fetching your current mode (light/dark) and your images continuously for resource optimization purposes.
+
+## background story
+
+I had installed a lovely wallpaper slideshow gnome extension on my fedora 41, it was working well except that my laptop's key input would bug everytime the image was updated, as I wanted a differnt image every couple of seconds, it was a real issue. It was big disappointment for me, not to be able to flex my slideshow desktop background to my friends and family. I was desperate for it so I told myself, guess I'm going to have to do it myself! So I built it, and I'm very happy I did because now I don't just have a slideshow desktop background, I have a slideshow desktop background that I BUILT! And that allows me to flex extra hard on my friends!!! :DDD
+I know how cool it is to have a background slideshow, even when it's not your own program, it is a very cool flex! So I'm working on an official gnome release so that more people can flex on their friends too :DDDDD <3.
+
+I assume the command "gsettings set org.gnome.desktop.background picture-uri" accepts all format types, even when I tested custom types it worked, but for more convenient usage of this program I have limited the available image types to ("jpeg", "jpg", "png", "gif", "bmp", "tiff", "tif", "webp", "ico", "heif", "heic", "raw"), so that your .txt .json and other file types in your selected image repository can be ignored.
+
+PS: my wallpaper doesn't cause the typing bug I was experiencing with the extension I installed but it does create a noticeable short term spike in cpu usage the moment the wallpaper background is changed. But the experience is mostly smooth, I do notice that my machine is not running very smoothly if I set the time to 1 second so that the wallpaper background is modified every second.
