@@ -26,6 +26,8 @@ rm -rf $INSTALLOC
 mkdir -p $BINLOC
 mkdir $INSTALLOC
 
+shc -f bg-slideshow.sh -o bg-slideshow
+
 cp ./manager.py ./bg-slideshow.py ./database.py ./uninstall.sh $INSTALLOC
 cp ./bg-slideshow ./bg-slideshow.sh "$HOME/.local/bin/"
 
