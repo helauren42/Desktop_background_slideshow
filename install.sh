@@ -1,6 +1,22 @@
 #!/bin/bash
 
 echo "Installing bg-slideshow"
+echo "This installation requires you to have python3 with typing module, a c compiler and the shc command installed"
+
+if ! command -v python3 &> /dev/null; then
+    echo "Error: python3 is not installed please install it first"
+    exit 1
+fi
+
+if ! command -v gcc &> /dev/null && ! command -v clang &> /dev/null; then
+    echo "Error: No C compiler (gcc or clang) is installed. Please install one."
+    exit 1
+fi
+
+if ! command -v shc &> /dev/null; then
+    echo "Error: shc is not installed on your device, please install shc first"
+    exit 1
+fi
 
 INSTALLOC="$HOME/.local/bin/.app-bg-slideshow/"
 BINLOC="$HOME/.local/bin/"
