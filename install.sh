@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "Installing bg-slideshow"
+
 INSTALLOC="$HOME/.local/bin/.app-bg-slideshow/"
 
 rm -rf $INSTALLOC
@@ -11,3 +13,5 @@ cp ./bg-slideshow ./bg-slideshow.sh "$HOME/.local/bin/"
 
 chown $USER:$USER $INSTALLOC
 chown $USER:$USER $INSTALLOC/*
+
+echo "Installation done"

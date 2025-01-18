@@ -81,7 +81,8 @@ class Manager(Abstract_manager):
 
     def executeArgs(self, args: argparse.ArgumentParser):
         if args.uninstall:
-            subprocess.run(["python3", os.path.join(WD + "/bg-slideshow.py")], close_fds=True, stderr=subprocess.PIPE, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+
+            subprocess.run([os.path.join(WD + "/uninstall.sh")])
             sys.exit(0)
         if args.set_time:
             self.setTime(args_time=args.set_time, minutes=False)
