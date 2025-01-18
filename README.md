@@ -15,6 +15,7 @@ To remove the application you can run the uninstall.sh from ~/.local/bin/.app-bg
 ### Dependencies
 
 You will need python3 and if you're python3 version is < 3.5 then you will need to manually install the typing module via pip, all other modules used are in the standard library.
+You will also need shc command, to be installed with your system's package manager, shc uses a c compiler so you will need eith clang or gcc.
 
 # Usage
 
