@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Installing bg-slideshow"
-echo "This installation requires you to have python3 with typing module, a c compiler and the shc command installed"
+echo "This program requires that you have python3 with typing module, a c compiler and the shc command installed"
 
 if ! command -v python3 &> /dev/null; then
     echo "Error: python3 is not installed please install it first"
@@ -32,4 +32,4 @@ cp ./bg-slideshow ./bg-slideshow.sh "$HOME/.local/bin/"
 chown $USER:$USER $INSTALLOC
 chown $USER:$USER $INSTALLOC/*
 
-echo "Installation done"
+echo "Installation completed succesfully"
