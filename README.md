@@ -41,12 +41,12 @@ options:</br>
 
 Start by defining path argument and optionally set the time.
 
-EX: python3 manager.py -s 10 ~/Pictures/wallpapers
+EX: bg-slideshow -s 10 ~/Pictures/wallpapers
 
 This declares that we want to fetch our background images from "~/Pictures/wallpapers" and that the image will be changed every 10 seconds
 This information is stored in a "./.app-bg-slideshow/data.json" file, so it should be stored between your sessions.
 
-Then you can safely run python3 manager.py -start to launch the slideshow and -stop to interrupt it, which effectively kills the running process.
+Then you can safely run bg-slideshow -start to launch the slideshow and -stop to interrupt it, which effectively kills the running process.
 
 If you modify the images' directory, while the application is running, the behaviour of this application is undefined.
 Although I would expect that if you remove image files, you increase your risk of having a blank screen and if you add images those will not be seen by running application.
