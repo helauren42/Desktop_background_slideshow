@@ -1,6 +1,7 @@
 *.txt
 *.pyc
 *.json
+*.swp
 
 zip
 __pycache__
