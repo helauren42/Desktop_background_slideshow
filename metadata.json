@@ -1,0 +1,5 @@
+{
+	"run":"bg-slideshow.sh",
+	"name":"bg-slideshow",
+	"description":"Automated bg wallpaper change for a slideshow effect"
+}

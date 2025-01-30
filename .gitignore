@@ -1,7 +1,7 @@
 *.pyc
-*.json
 *.swp
 
+data.json
 zip
 __pycache__
 bg-slideshow.sh.x.c
