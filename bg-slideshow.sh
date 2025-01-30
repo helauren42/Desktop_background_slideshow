@@ -1,5 +1,5 @@
 #!/bin/bash
 
-INSTALLOC="$HOME/.local/bin/.app-bg-slideshow"
+APP_PATH="$HOME/.local/appman/apps/bg-slideshow"
 
-python3 -u $INSTALLOC/manager.py "$@"
+python3 -u $APP_PATH/manager.py "$@"

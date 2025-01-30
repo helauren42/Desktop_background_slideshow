@@ -12,7 +12,7 @@ db: database = database()
 
 # CONST GLOBAL
 HOME = os.path.expanduser("~")
-DATA_FILE = os.path.join(HOME, ".app-bg-slideshow/data.json")
+DATA_FILE = os.path.join(HOME, "bg-slideshow/data.json")
 PID = os.getpid()
 LENGTH = 0 if db.imgs is None else len(db.imgs)
 COLOR_SCHEME = subprocess.run(["gsettings get org.gnome.desktop.interface color-scheme"], shell=True,

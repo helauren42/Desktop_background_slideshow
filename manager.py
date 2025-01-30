@@ -22,7 +22,7 @@ VALID_TYPES = [
 ]
 
 HOME = os.path.expanduser("~")
-WD = os.path.join(HOME, ".local/bin/.app-bg-slideshow")
+WD = os.path.join(HOME, ".local/appman/apps/bg-slideshow")
 
 class Abstract_manager(ABC):
     def getImages(self):

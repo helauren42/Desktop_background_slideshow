@@ -1,37 +1,29 @@
 #!/bin/bash
 
-INSTALLOC="$HOME/.local/bin/.app-bg-slideshow"
-DIR_BIN="$HOME/.local/bin/bg-slideshow"
-DIR_SCRIPT="$HOME/.local/bin/bg-slideshow.sh"
+APP_PATH="$HOME/.local/appman/apps/bg-slideshow"
+SCRIPT_PATH="$HOME/.local/appman/bin/bg-slideshow.sh"
 
 echo "removing bg-slideshow"
 
 res=0
 
-if ps aux | grep -v grep | grep -q 'bg-slideshow'; then
+if ps aux | grep -v grep | grep -q 'bg-slideshow.sh'; then
     echo "stopping current running instance of bg-slideshow"
     bg-slideshow -stop
 fi
 
-if test ! -d $INSTALLOC; then
+if test ! -d $APP_PATH; then
     echo "Error: can not find application directory"
     res=1
 else
-    rm -rf $INSTALLOC
+    rm -rf $APP_PATH
 fi
 
-if test ! -f $DIR_BIN; then
-    echo "Error: can not find binary"
-    res=1
-else
-    rm $DIR_BIN
-fi
-
-if test ! -f $DIR_SCRIPT; then
+if test ! -f $SCRIPT_PATH; then
     echo "Error: can not find application's shell script"
     res=1
 else
-    rm $DIR_SCRIPT
+    rm $SCRIPT_PATH
 fi
 
 if test $res -eq 0; then
@@ -39,4 +31,3 @@ if test $res -eq 0; then
 else
     echo "uninstall failed"
 fi
-

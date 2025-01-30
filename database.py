@@ -4,7 +4,7 @@ import sys
 import os
 
 HOME = os.path.expanduser("~")
-DATA_FILE = os.path.join(HOME, ".local/bin", ".app-bg-slideshow/data.json")
+DATA_FILE = os.path.join(HOME, ".local/appman/apps/bg-slideshow/", "data.json")
 
 class database:
     def __init__(self):

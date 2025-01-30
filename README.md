@@ -9,8 +9,8 @@ I might build a custom Extensions application that allows for a lot more freedom
 # Installation
 
 Just run the install.sh file.
-The executable will be located in ~/.local/bin/ and the application files in ~/.local/bin/.app-bg-slideshow/.
-To remove the application you can run the uninstall.sh from ~/.local/bin/.app-bg-slideshow/ or run bg-slideshow --uninstall.
+The executable will be located in ~/.local/appman/bin/ and the application files in ~/.local/appman/bin/bg-slideshow/.
+To remove the application you can run the uninstall.sh from ~/.local/appman/bin/bg-slideshow/ or run bg-slideshow --uninstall.
 
 ### Dependencies
 
@@ -49,7 +49,7 @@ Start by defining path argument and optionally set the time.
 EX: bg-slideshow -s 10 ~/Pictures/wallpapers
 
 This declares that we want to fetch our background images from "~/Pictures/wallpapers" and that the image will be changed every 10 seconds
-This information is stored in a "./.app-bg-slideshow/data.json" file, so it should be stored between your sessions.
+This information is stored in a "./bg-slideshow/data.json" file, so it should be stored between your sessions.
 
 Then you can safely run bg-slideshow -start to launch the slideshow and -stop to interrupt it, which effectively kills the running process.
 
