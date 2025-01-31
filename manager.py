@@ -6,6 +6,7 @@ from database import database
 import os
 import sys
 
+USER_DIR = os.path.expanduser('~')
 PID = os.getpid()
 
 VALID_TYPES = [
@@ -62,7 +63,7 @@ class Manager(Abstract_manager):
         if self.db.imgs is None or len(self.db.imgs) <= 0:
             print("Error: no imgs directory set, failed to activate")
         try:
-            subprocess.run(["pkill", "-f", "/home/helauren/.local/appman/apps/bg-slideshow/bg-slideshow.py"], check=True, close_fds=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+            subprocess.run(["pkill", "-f", f"{USER_DIR}/.local/appman/apps/bg-slideshow/bg-slideshow.py"], check=True, close_fds=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
         except Exception as e:
             pass
         try:
@@ -71,15 +72,8 @@ class Manager(Abstract_manager):
             print(f"Failed to activate application:\n{e}")
 
     def deactivate(self):
-        # if not self.db.pid or len(self.db.pid) <= 0:
-        #     return
-        # for pid in self.db.pid:
-        #     try:
-        #         subprocess.run(["kill", str(pid)], check=True, close_fds=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
-        #     except Exception as e:
-        #         pass
         try:
-            subprocess.run(["pkill", "-f", "/home/helauren/.local/appman/apps/bg-slideshow/bg-slideshow.py"], check=True, close_fds=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+            subprocess.run(["pkill", "-f", f"{USER_DIR}/.local/appman/apps/bg-slideshow/bg-slideshow.py"], check=True, close_fds=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
         except Exception as e:
             print("Warning: No process to terminate")
         self.db.pid = None
