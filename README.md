@@ -9,8 +9,8 @@ I might build a custom Extensions application that allows for a lot more freedom
 # Installation
 
 Just run the install.sh file.
-The executable will be located in ~/.local/appman/bin/ and the application files in ~/.local/appman/bin/bg-slideshow/.
-To remove the application you can run the uninstall.sh from ~/.local/appman/bin/bg-slideshow/ or run bg-slideshow --uninstall.
+The executable will be located in ~/.local/appman/run/ and the application files in ~/.local/appman/run/bg-slideshow/.
+To remove the application you can run the uninstall.sh from ~/.local/appman/run/bg-slideshow/ or run bg-slideshow --uninstall.
 
 ### Dependencies
 
@@ -21,7 +21,7 @@ You will also need shc command, to be installed with your system's package manag
 
 ### For an overview of the usage of the program here is what the help from "bg-slideshow -h" displays:
 
-usage: bg-slideshow [-h] [-s SET_TIME] [-start] [-stop] [-refresh] [path]
+usage: bg-slideshow [-h] [-s SET_TIME] [-activate] [-deactivate] [-refresh] [path]
 
 positional arguments:</br>
   Directory path containing images for the slideshow
@@ -33,10 +33,10 @@ options:</br>
   set the time between images in seconds, defaults to 30 seconds</br></br>
   -sm, --set-time-minutes</br>
   set the time between images in minutes</br></br>
-  -start, --start</br>
-  start the slideshow, requires path to be set</br></br>
-  -stop, --stop</br>
-  stop the slideshow, will stop all instances of the application if multiple are running</br></br>
+  -activate, --activate</br>
+  activate the slideshow, requires path to be set</br></br>
+  -deactivate, --deactivate</br>
+  deactivate the slideshow, will deactivate all instances of the application if multiple are running</br></br>
   -refresh, --refresh</br>
   updates the images for the slideshow when the images directory has been modified</br>
   --uninstall</br>
@@ -44,19 +44,19 @@ options:</br>
 
 ### Usage explanation
 
-Start by defining path argument and optionally set the time.
+activate by defining path argument and optionally set the time.
 
 EX: bg-slideshow -s 10 ~/Pictures/wallpapers
 
 This declares that we want to fetch our background images from "~/Pictures/wallpapers" and that the image will be changed every 10 seconds
 This information is stored in a "./bg-slideshow/data.json" file, so it should be stored between your sessions.
 
-Then you can safely run bg-slideshow -start to launch the slideshow and -stop to interrupt it, which effectively kills the running process.
+Then you can safely run bg-slideshow -activate to launch the slideshow and -deactivate to interrupt it, which effectively kills the running process.
 
 If you modify the images' directory, while the application is running, the behaviour of this application is undefined.
 Although I would expect that if you remove image files, you increase your risk of having a blank screen and if you add images those will not be seen by running application.
 
-To make the application up to date with the images in that directory, you can use the --refresh option or manually stop and restart the application.
+To make the application up to date with the images in that directory, you can use the --refresh option or manually deactivate and reactivate the application.
 
 You also need to call --refresh when switching from light to dark mode in your gnome appearance settings as there is a different command being executed by the wallpaper slider for both, and your current mode is only evaluated at the application's launch time
 

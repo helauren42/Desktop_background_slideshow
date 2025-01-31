@@ -20,7 +20,7 @@ COLOR_SCHEME = subprocess.run(["gsettings get org.gnome.desktop.interface color-
 COLOR_SCHEME = "dark" if COLOR_SCHEME.find("dark") != -1 else "light"
 
 if not db.imgs or len(db.imgs) <= 0:
-    print("No images have been found, can not start")
+    print("No images have been found, can not activate")
     sys.exit(1)
 
 db.addPid(PID)

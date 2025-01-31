@@ -3,7 +3,7 @@
 echo "Installing bg-slideshow"
 
 APP_PATH="$HOME/.local/appman/apps/bg-slideshow/"
-BINLOC="$HOME/.local/appman/bin/"
+BINLOC="$HOME/.local/appman/run/"
 
 mkdir -p $BINLOC
 mkdir $APP_PATH

@@ -1,15 +1,15 @@
 #!/bin/bash
 
 APP_PATH="$HOME/.local/appman/apps/bg-slideshow"
-SCRIPT_PATH="$HOME/.local/appman/bin/bg-slideshow.sh"
+SCRIPT_PATH="$HOME/.local/appman/run/bg-slideshow.sh"
 
 echo "removing bg-slideshow"
 
 res=0
 
 if ps aux | grep -v grep | grep -q 'bg-slideshow.sh'; then
-    echo "stopping current running instance of bg-slideshow"
-    bg-slideshow -stop
+    echo "deactivateping current running instance of bg-slideshow"
+    bg-slideshow -deactivate
 fi
 
 if test ! -d $APP_PATH; then

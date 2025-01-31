@@ -58,30 +58,35 @@ class Manager(Abstract_manager):
         else:
             self.db.time = args_time
 
-    def start(self):
+    def activate(self):
+        if self.db.imgs is None or len(self.db.imgs) <= 0:
+            print("Error: no imgs directory set, failed to activate")
+        try:
+            self.deactivate()
+        except Exception as e:
+            pass
         try:
             process = subprocess.Popen(["python3", os.path.join(WD + "/bg-slideshow.py")], close_fds=True, stderr=subprocess.PIPE, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-            # process = subprocess.Popen(["python3", os.path.join(WD + "/bg-slideshow.py")])
         except Exception as e:
-            print(f"Failed to start application:\n{e}")
+            print(f"Failed to activate application:\n{e}")
 
-    def stop(self):
-        if not self.db.pid or len(self.db.pid) <= 0:
-            return
-        for pid in self.db.pid:
-            try:
-                subprocess.run(["kill", str(pid)], check=True, close_fds=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
-            except Exception as e:
-                pass
-            self.db.pid = None
+    def deactivate(self):
+        # if not self.db.pid or len(self.db.pid) <= 0:
+        #     return
+        # for pid in self.db.pid:
+        #     try:
+        #         subprocess.run(["kill", str(pid)], check=True, close_fds=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+        #     except Exception as e:
+        #         pass
+        subprocess.run(["pkill", "-f", "/home/helauren/.local/appman/apps/bg-slideshow/bg-slideshow.py"], check=True, close_fds=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+        self.db.pid = None
 
     def refresh(self):
-        self.stop()
-        self.start()
+        self.deactivate()
+        self.activate()
 
     def executeArgs(self, args: argparse.ArgumentParser):
         if args.uninstall:
-
             subprocess.run([os.path.join(WD + "/uninstall.sh")])
             sys.exit(0)
         if args.set_time:
@@ -92,11 +97,11 @@ class Manager(Abstract_manager):
             self.newPath(args_path=args.path)
         if args.refresh:
             self.refresh()
-        if args.start:
-            self.start()
-        if args.stop:
-            self.stop()
-        
+        if args.activate:
+            self.activate()
+        if args.deactivate:
+            self.deactivate()
+
         self.db.write()
 
 def main():
@@ -106,10 +111,10 @@ def main():
     parser.add_argument("-sm", "--set-time-minutes", type=int, help="time between images in minutes")
     parser.add_argument('path', type=str, nargs='?', help="Directory path containing images for the slideshow")
 
-    parser.add_argument("-start", "--start", action="store_true", help="start the slideshow, requires path to be set")
-    parser.add_argument("-stop", "--stop", action="store_true", help="stop the slideshow, will stop all instances of the \
+    parser.add_argument("-activate", "--activate", action="store_true", help="activate the slideshow, requires path to be set")
+    parser.add_argument("-deactivate", "--deactivate", action="store_true", help="deactivate the slideshow, will deactivate all instances of the \
                         application if multiple are running")
-    parser.add_argument("-refresh", "--refresh", action="store_true", help="restarts app to be updated with the current \
+    parser.add_argument("-refresh", "--refresh", action="store_true", help="reactivates app to be updated with the current \
                         shell environment and images in the directory")
     parser.add_argument("--uninstall", action="store_true", help="uninstals the background slideshow application and all the application's components")
 
