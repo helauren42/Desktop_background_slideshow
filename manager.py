@@ -5,9 +5,18 @@ from abc import ABC
 from database import database
 import os
 import sys
+import logging
 
-USER_DIR = os.path.expanduser('~')
+USER_DIR = os.path.expanduser('~') + "/"
 PID = os.getpid()
+PROJECT_DIR = USER_DIR + ".local/appman/apps/bg-slideshow/"
+
+logging.basicConfig(
+    level=logging.DEBUG,
+        handlers=[
+            logging.FileHandler(PROJECT_DIR + ".bg.log", mode="w")
+        ]
+)
 
 VALID_TYPES = [
     "jpeg", "jpg",
@@ -21,9 +30,6 @@ VALID_TYPES = [
     "raw",
     "avif"
 ]
-
-HOME = os.path.expanduser("~")
-WD = os.path.join(HOME, ".local/appman/apps/bg-slideshow")
 
 class Abstract_manager(ABC):
     def getImages(self):
@@ -63,17 +69,17 @@ class Manager(Abstract_manager):
         if self.db.imgs is None or len(self.db.imgs) <= 0:
             print("Error: no imgs directory set, failed to activate")
         try:
-            subprocess.run(["pkill", "-f", f"{USER_DIR}/.local/appman/apps/bg-slideshow/bg-slideshow.py"], check=True, close_fds=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+            subprocess.run(["pkill", "-f", f"bg-slideshow.py"], check=True, close_fds=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
         except Exception as e:
             pass
         try:
-            process = subprocess.Popen(["python3", os.path.join(WD + "/bg-slideshow.py")], close_fds=True, stderr=subprocess.PIPE, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+            process = subprocess.Popen(["python3", os.path.join(PROJECT_DIR + "bg-slideshow.py")], close_fds=True, stderr=subprocess.PIPE, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
         except Exception as e:
             print(f"Failed to activate application:\n{e}")
 
     def deactivate(self):
         try:
-            subprocess.run(["pkill", "-f", f"{USER_DIR}/.local/appman/apps/bg-slideshow/bg-slideshow.py"], check=True, close_fds=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+            subprocess.run(["pkill", "-f", f"bg-slideshow.py"], check=True, close_fds=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
         except Exception as e:
             print("Warning: No process to terminate")
         self.db.pid = None
@@ -84,7 +90,7 @@ class Manager(Abstract_manager):
 
     def executeArgs(self, args: argparse.ArgumentParser):
         if args.uninstall:
-            subprocess.run([os.path.join(WD + "/uninstall.sh")])
+            subprocess.run([os.path.join(PROJECT_DIR + "/uninstall.sh")])
             sys.exit(0)
         if args.set_time:
             self.setTime(args_time=args.set_time, minutes=False)
