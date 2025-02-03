@@ -90,7 +90,7 @@ class Manager(Abstract_manager):
 
     def executeArgs(self, args: argparse.ArgumentParser):
         if args.uninstall:
-            subprocess.run([os.path.join(PROJECT_DIR + "/uninstall.sh")])
+            subprocess.run([os.path.join(PROJECT_DIR + "uninstall.sh")])
             sys.exit(0)
         if args.set_time:
             self.setTime(args_time=args.set_time, minutes=False)
@@ -114,10 +114,10 @@ def main():
     parser.add_argument("-sm", "--set-time-minutes", type=int, help="time between images in minutes")
     parser.add_argument('path', type=str, nargs='?', help="Directory path containing images for the slideshow")
 
-    parser.add_argument("-activate", "--activate", action="store_true", help="activate the slideshow, requires path to be set")
-    parser.add_argument("-deactivate", "--deactivate", action="store_true", help="deactivate the slideshow, will deactivate all instances of the \
+    parser.add_argument("-a", "--activate", action="store_true", help="activate the slideshow, requires path to be set")
+    parser.add_argument("-d", "--deactivate", action="store_true", help="deactivate the slideshow, will deactivate all instances of the \
                         application if multiple are running")
-    parser.add_argument("-refresh", "--refresh", action="store_true", help="reactivates app to be updated with the current \
+    parser.add_argument("-r", "--refresh", action="store_true", help="reactivates app to be updated with the current \
                         shell environment and images in the directory")
     parser.add_argument("--uninstall", action="store_true", help="uninstals the background slideshow application and all the application's components")
 
