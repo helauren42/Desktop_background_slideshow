@@ -1,5 +1,6 @@
 {
 	"run":"bg-slideshow.sh",
 	"name":"bg-slideshow",
+	"program_name":"bg-slideshow.py",
 	"description":"Automated bg wallpaper change for a slideshow effect"
 }
