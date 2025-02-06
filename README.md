@@ -1,21 +1,26 @@
-# Desktop background slideshow"
+# Gnome background slideshow
 
 This program is developed as a desktop background slideshow for gnome.
 link to github repo: https://github.com/helauren42/gnome_wallpaper_slider
 
-Unfortunately I did not integrate it to the official gnome Extensions application, I had built this in python and it was working and then I didn't feel like rebuilding the same thing in javascript while also runnning a lot less subprocesses, I did not know Gnome was this strict in their rules on how to build extensions.
-I might build a custom Extensions application that allows for a lot more freedom than the current official Gnome one.
+The install.sh integrates the bg-slideshow application into the appman application I built, it is a linux session manager allowing me too easily manage and launch linux apps at launch time.
+https://github.com/helauren42/appman
+
+I did not integrate it to the official gnome Extensions application, I had built this in python, it was working and then I didn't feel like rebuilding the same thing in javascript while also runnning a lot less subprocesses. I did not know Gnome was this strict in their rules on how to build extensions, I assume that if I built it following the official Gnome extensions' rules, I probabaly would have developed the same bugs I found on the official background slideshow application.
+So yeah since then I also built an application to "replace" the Gnome Extensions app, but this time it gives users the freedom to develop their application however they want the constraints to integrate an application to appman are minimal and it is not limited to gnome customizations
 
 # Installation
 
-Just run the install.sh file.
+- Install appman https://github.com/helauren42/appman.
+- Clone this bg-slideshow repository "git clone https://github.com/helauren42/bg-slideshow/"
+- Run the install.sh file inside the repo.
 The executable will be located in ~/.local/appman/run/ and the application files in ~/.local/appman/run/bg-slideshow/.
-To remove the application you can run the uninstall.sh from ~/.local/appman/run/bg-slideshow/ or run bg-slideshow --uninstall.
+To remove the application you can run the uninstall.sh from ~/.local/appman/run/bg-slideshow/.
+It is safe to delete the cloned repo after the installation is done.
 
 ### Dependencies
 
 You will need python3 and if you're python3 version is < 3.5 then you will need to manually install the typing module via pip, all other modules used are in the standard library.
-You will also need shc command, to be installed with your system's package manager, shc uses a c compiler so you will need eith clang or gcc.
 
 # Usage
 
@@ -51,16 +56,15 @@ EX: bg-slideshow -s 10 ~/Pictures/wallpapers
 This declares that we want to fetch our background images from "~/Pictures/wallpapers" and that the image will be changed every 10 seconds
 This information is stored in a "./bg-slideshow/data.json" file, so it should be stored between your sessions.
 
-Then you can safely run bg-slideshow -activate to launch the slideshow and -deactivate to interrupt it, which effectively kills the running process.
+Then you can safely run bg-slideshow --activate to launch the slideshow and --deactivate to interrupt it, which effectively kills the running process.
+Or from appman run "appman$> activate bg-slideshow" or "appman$> deactivate bg-slideshow"
 
 If you modify the images' directory, while the application is running, the behaviour of this application is undefined.
-Although I would expect that if you remove image files, you increase your risk of having a blank screen and if you add images those will not be seen by running application.
+It's untested but I would expect that if you remove image files, you increase your risk of having a blank screen and if you add images those will not be seen by running application.
 
 To make the application up to date with the images in that directory, you can use the --refresh option or manually deactivate and reactivate the application.
 
-You also need to call --refresh when switching from light to dark mode in your gnome appearance settings as there is a different command being executed by the wallpaper slider for both, and your current mode is only evaluated at the application's launch time
-
-The slider is not fetching your current mode (light/dark) and your images continuously for resource optimization purposes.
+You also need to call --refresh when switching from light to dark mode in your gnome appearance settings.
 
 # background story
 
