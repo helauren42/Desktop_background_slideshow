@@ -68,10 +68,6 @@ class Manager(Abstract_manager):
         if self.db.imgs is None or len(self.db.imgs) <= 0:
             print("Error: no imgs directory set, failed to activate")
         try:
-            subprocess.run(["pkill", "-f", f"bg-slideshow.py"], check=True, close_fds=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
-        except Exception as e:
-            pass
-        try:
             process = subprocess.Popen(["python3", os.path.join(PROJECT_DIR + "bg-slideshow.py")], close_fds=True, stderr=subprocess.PIPE, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
         except Exception as e:
             print(f"Failed to activate application:\n{e}")
