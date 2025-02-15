@@ -8,11 +8,11 @@ import logging
 from collections import deque
 import signal
 
-logging.basicConfig(
+clogging.basicConfig(
     level=logging.DEBUG,
     format="%(asctime)s [%(levelname)s] %(message)s",
     handlers=[
-        logging.FileHandler("logger.log"),
+        logging.FileHandler("logger.log", mode="w"),
     ]
 )
 
