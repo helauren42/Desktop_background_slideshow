@@ -11,7 +11,6 @@ class database:
         self.path: Optional[str] = None
         self.imgs: Optional[List[str]] = None
         self.time: Optional[int] = None
-        self.pid: Optional[List[int]] = None
         self.fetch()
         if self.time is None:
             self.time = 30
@@ -23,7 +22,6 @@ class database:
                 self.path = data.get("path")
                 self.imgs = data.get("imgs")
                 self.time = data.get("time")
-                self.pid = data.get("pid")
                 return data
         except FileNotFoundError:
             return {}
@@ -47,13 +45,5 @@ class database:
             data["imgs"] = self.imgs
         if self.time:
             data["time"] = self.time
-        if self.pid:
-            data["pid"] = self.pid
         with open(DATA_FILE, "w") as file:
             json.dump(data, file, indent=4)
-
-    def addPid(self, _pid: int):
-        if self.pid == None:
-            self.pid = []
-        self.pid.append(_pid)
-        self.write()
