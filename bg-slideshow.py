@@ -4,7 +4,20 @@ import sys
 from database import database
 from time import sleep
 import subprocess
+import logging
 from collections import deque
+import signal
+
+logging.basicConfig(
+    level=logging.DEBUG,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    handlers=[
+        logging.FileHandler("logger.log"),
+    ]
+)
+
+# Log at launch
+logging.info("Starting bg-slideshow application.")
 
 # GLOBAL VARIABLES
 imgs_history = deque()
@@ -21,6 +34,14 @@ COLOR_SCHEME = "dark" if COLOR_SCHEME.find("dark") != -1 else "light"
 if not db.imgs or len(db.imgs) <= 0:
     print("No images have been found, can not activate")
     sys.exit(1)
+
+def signalhandler(signum, frame):
+    logging.info(f"Received signal: {signum}")
+    logging.info(f"Signal caught in file: {frame.f_code.co_filename} at line: {frame.f_lineno}")
+    sys.exit(0)
+
+signal.signal(signal.SIGINT, signalhandler)
+signal.signal(signal.SIGTERM, signalhandler)
 
 def getImage():
     while len(imgs_history) > LENGTH // 2:
@@ -50,3 +71,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    logging.info("main ended")
