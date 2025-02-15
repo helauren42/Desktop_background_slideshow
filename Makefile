@@ -1,4 +1,7 @@
 all:
+	update.sh
+
+re:
 	./uninstall.sh
 	rm -f bg-slideshow
 	rm -f bg-slideshow.x.c

@@ -8,7 +8,6 @@ import sys
 import logging
 
 USER_DIR = os.path.expanduser('~') + "/"
-PID = os.getpid()
 PROJECT_DIR = USER_DIR + ".local/appman/apps/bg-slideshow/"
 
 logging.basicConfig(
@@ -82,7 +81,6 @@ class Manager(Abstract_manager):
             subprocess.run(["pkill", "-f", f"bg-slideshow.py"], check=True, close_fds=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
         except Exception as e:
             print("Warning: No process to terminate")
-        self.db.pid = None
 
     def refresh(self):
         self.deactivate()
