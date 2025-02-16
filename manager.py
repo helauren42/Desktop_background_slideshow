@@ -72,7 +72,7 @@ class Manager(Abstract_manager):
             return
         try:
             logging.info("Activating slideshow application")
-            process = subprocess.run(["python3", os.path.join(PROJECT_DIR + "bg-slideshow.py")], close_fds=True, capture_output=True)
+            subprocess.run(["python3", os.path.join(PROJECT_DIR + "bg-slideshow.py")], close_fds=True, start_new_session=True)
             logging.debug(f"Activation output: {process.stdout}, errors: {process.stderr}")
         except Exception as e:
             logging.error("Failed to activate application", exc_info=True)
