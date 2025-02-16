@@ -86,11 +86,6 @@ class Manager(Abstract_manager):
             logging.warning("No process to terminate", exc_info=True)
             print("Warning: No process to terminate")
 
-    def refresh(self):
-        logging.info("Refreshing application")
-        self.deactivate()
-        self.activate()
-
     def executeArgs(self, args: argparse.ArgumentParser):
         logging.info("Executing command-line arguments")
         if args.uninstall:
@@ -103,8 +98,6 @@ class Manager(Abstract_manager):
             self.setTime(args_time=args.set_time_minutes, minutes=True)
         if args.path:
             self.newPath(args_path=args.path)
-        if args.refresh:
-            self.refresh()
         if args.activate:
             self.activate()
         if args.deactivate:
@@ -122,7 +115,6 @@ def main():
 
     parser.add_argument("-a", "--activate", action="store_true", help="Activate the slideshow, requires path to be set")
     parser.add_argument("-d", "--deactivate", action="store_true", help="Deactivate the slideshow, will terminate all instances if multiple are running")
-    parser.add_argument("-r", "--refresh", action="store_true", help="Reactivates app to be updated with the current shell environment and images in the directory")
     parser.add_argument("--uninstall", action="store_true", help="Uninstalls the background slideshow application and all its components")
 
     if len(sys.argv) <= 1:

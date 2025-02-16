@@ -26,7 +26,7 @@ You will need python3 and if you're python3 version is < 3.5 then you will need 
 
 ### For an overview of the usage of the program here is what the help from "bg-slideshow -h" displays:
 
-usage: bg-slideshow [-h] [-s SET_TIME] [-activate] [-deactivate] [-refresh] [path]
+usage: bg-slideshow [-h] [-s SET_TIME] [-activate] [-deactivate] [path]
 
 positional arguments:</br>
   Directory path containing images for the slideshow
@@ -42,8 +42,6 @@ options:</br>
   activate the slideshow, requires path to be set</br></br>
   -deactivate, --deactivate</br>
   deactivate the slideshow, will deactivate all instances of the application if multiple are running</br></br>
-  -refresh, --refresh</br>
-  updates the images for the slideshow when the images directory has been modified</br>
   --uninstall</br>
   uninstals the background slideshow application and all the application's components</br>
 
@@ -62,9 +60,9 @@ Or from appman run "appman$> activate bg-slideshow" or "appman$> deactivate bg-s
 If you modify the images' directory, while the application is running, the behaviour of this application is undefined.
 It's untested but I would expect that if you remove image files, you increase your risk of having a blank screen and if you add images those will not be seen by running application.
 
-To make the application up to date with the images in that directory, you can use the --refresh option or manually deactivate and reactivate the application.
+To make the application up to date with the images in that directory, you should use "restart bg-slideshow" inside of appman option or manually deactivate and reactivate the application.
 
-You also need to call --refresh when switching from light to dark mode in your gnome appearance settings.
+You also need to call restart the app when switching from light to dark mode in your gnome appearance settings.
 
 # background story
 
