@@ -2,6 +2,7 @@ import json
 from typing import List, Dict, Optional
 import sys
 import os
+import logging
 
 HOME = os.path.expanduser("~")
 DATA_FILE = os.path.join(HOME, ".local/appman/apps/bg-slideshow/", "data.json")
@@ -38,6 +39,7 @@ class database:
                 sys.exit(1)
 
     def write(self):
+        logging.info(f"Writing to db:")
         data: Dict = {}
         if self.path:
             data["path"] = self.path
@@ -45,5 +47,6 @@ class database:
             data["imgs"] = self.imgs
         if self.time:
             data["time"] = self.time
+        logging.info(f"{data}")
         with open(DATA_FILE, "w") as file:
             json.dump(data, file, indent=4)

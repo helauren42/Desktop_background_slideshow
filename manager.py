@@ -12,7 +12,7 @@ PROJECT_DIR = USER_DIR + ".local/appman/apps/bg-slideshow/"
 
 logging.basicConfig(
     level=logging.DEBUG,
-    handlers=[logging.FileHandler(PROJECT_DIR + "manager.log", mode="w")],
+    handlers=[logging.FileHandler(PROJECT_DIR + "manager.log", mode="a")],
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 
@@ -72,22 +72,22 @@ class Manager(Abstract_manager):
             return
         try:
             logging.info("Activating slideshow application")
-            subprocess.run(["python3", os.path.join(PROJECT_DIR + "bg-slideshow.py")], close_fds=True, start_new_session=True)
+            process = subprocess.Popen(["python3", os.path.join(PROJECT_DIR + "bg-slideshow.py")], close_fds=True, start_new_session=True)
             logging.debug(f"Activation output: {process.stdout}, errors: {process.stderr}")
         except Exception as e:
             logging.error("Failed to activate application", exc_info=True)
-            print(f"Failed to activate application:\n{e}")
 
     def deactivate(self):
         try:
             logging.info("Deactivating slideshow application")
-            subprocess.run(["pkill", "-f", f"bg-slideshow.py"], check=True, close_fds=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+            subprocess.run(["pkill", "-f", f"bg-slideshow.py"], check=True, close_fds=True, start_new_session=True)
         except Exception as e:
             logging.warning("No process to terminate", exc_info=True)
             print("Warning: No process to terminate")
 
     def executeArgs(self, args: argparse.ArgumentParser):
-        logging.info("Executing command-line arguments")
+        logging.info("Executing command-line arguments:")
+        logging.info(args)
         if args.uninstall:
             logging.info("Uninstalling application")
             subprocess.run([os.path.join(PROJECT_DIR + "uninstall.sh")])
@@ -125,6 +125,8 @@ def main():
     
     manager = Manager()
     manager.executeArgs(args)
+    logging.info("Done executing args")
 
 if __name__ == "__main__":
     main()
+    logging.info("finished main, terminating")

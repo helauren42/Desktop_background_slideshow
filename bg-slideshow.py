@@ -1,12 +1,13 @@
 import random
 import os
 import sys
-from database import database
 from time import sleep
 import subprocess
 import logging
 from collections import deque
 import signal
+
+from database import database
 
 USER_DIR = os.path.expanduser('~') + "/"
 PROJECT_DIR = USER_DIR + ".local/appman/apps/bg-slideshow/"
@@ -15,7 +16,7 @@ logging.basicConfig(
     level=logging.DEBUG,
     format="%(asctime)s [%(levelname)s] %(message)s",
     handlers=[
-        logging.FileHandler(PROJECT_DIR + "logger.log", mode="w"),
+        logging.FileHandler(PROJECT_DIR + "logger.log", mode="a"),
     ]
 )
 
@@ -28,7 +29,6 @@ db: database = database()
 
 # CONST GLOBAL
 HOME = os.path.expanduser("~")
-DATA_FILE = os.path.join(HOME, "bg-slideshow/data.json")
 LENGTH = 0 if db.imgs is None else len(db.imgs)
 COLOR_SCHEME = subprocess.run(["gsettings get org.gnome.desktop.interface color-scheme"], shell=True,
                               stdout=subprocess.PIPE, text=True).stdout.strip()
