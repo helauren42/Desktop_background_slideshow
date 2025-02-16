@@ -7,9 +7,9 @@ echo "removing bg-slideshow"
 
 res=0
 
-if ps aux | grep -v grep | grep -q 'bg-slideshow.sh'; then
-    echo "deactivateping current running instance of bg-slideshow"
-    bg-slideshow -deactivate
+if ps aux | grep -v grep | grep -q 'bg-slideshow.py'; then
+    echo "killing current running instance of bg-slideshow"
+    pkill bg-slideshow.py
 fi
 
 if test ! -d $APP_PATH; then

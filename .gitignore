@@ -1,5 +1,6 @@
 *.pyc
 *.swp
+*.x.c
 
 data.json
 zip

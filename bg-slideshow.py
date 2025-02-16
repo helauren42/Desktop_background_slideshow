@@ -8,11 +8,14 @@ import logging
 from collections import deque
 import signal
 
-clogging.basicConfig(
+USER_DIR = os.path.expanduser('~') + "/"
+PROJECT_DIR = USER_DIR + ".local/appman/apps/bg-slideshow/"
+
+logging.basicConfig(
     level=logging.DEBUG,
     format="%(asctime)s [%(levelname)s] %(message)s",
     handlers=[
-        logging.FileHandler("logger.log", mode="w"),
+        logging.FileHandler(PROJECT_DIR + "logger.log", mode="w"),
     ]
 )
 
